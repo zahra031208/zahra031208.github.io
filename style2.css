@@ -65,3 +65,48 @@ ul {
 li {
   margin-bottom: 6px;
 }
+.contact-form {
+  margin-top: 50px;
+  border-top: 3px solid black;
+  padding-top: 30px;
+}
+
+.contact-form h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+}
+
+.contact-form button {
+  width: fit-content;
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #333;
+}
+.contact-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
