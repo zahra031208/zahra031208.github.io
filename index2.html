@@ -4,40 +4,90 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CV Sebastian Bennett</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style2.css" />
 </head>
 <body>
-  <h1>p</h1>
-  <script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbzw-QQXM-lajjTXIJcNfbjMM1oSBkoOmevjBicgtuKvwDw1jQNoQAjkZOTBFoI0UaYrlQ/exec';
-  const form = document.forms['contact-form'];
-  const btn = document.getElementById('btn-submit');
-  const notif = document.getElementById('notif');
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="photo">
+        <img src="foto.jpg" alt="Foto Profil" />
+      </div>
+      <div class="name">
+        <h1>SEBASTIAN<br>BENNETT</h1>
+      </div>
+    </div>
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    btn.disabled = true;
-    btn.innerText = 'Mengirim...';
-    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-      .then((response) => {
-        btn.disabled = false;
-        btn.innerText = 'Kirim';
-        form.reset();
-        notif.style.display = 'inline';
-        setTimeout(() => {
-          notif.style.display = 'none';
-        }, 4000);
-        console.log('Success!', response);
-      })
-      .catch((error) => {
-        btn.disabled = false;
-        btn.innerText = 'Kirim';
-        alert('Terjadi kesalahan! Silakan coba lagi.');
-        console.error('Error!', error.message);
-      });
-  });
-</script>
+    <!-- Content Grid -->
+    <div class="content">
+<div class="contact-form">
+  <h2>Hubungi Saya</h2>
+  <form name="contact-form">
+    <label for="nama">Nama</label>
+    <input type="text" id="nama" name="nama" required />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="pesan">Pesan</label>
+    <textarea id="pesan" name="pesan" rows="5" required></textarea>
+
+    <button type="submit" id="btn-submit">
+      Kirim
+    </button>
+    <span id="notif" style="display: none; color: green; margin-top: 10px;">Pesan berhasil dikirim!</span>
+  </form>
+</div>
 
 
+      <!-- Kiri -->
+      <div class="left">
+        <section>
+          <h2>• TENTANG SAYA</h2>
+          <p>
+            Saya pernah menjadi seorang PR di UKM koperasi kampus. Saya juga berpengalaman dalam berbicara di depan publik. Keahlian lain saya suka akan menganalisis masalah dan merumuskan solusi bersama dengan tim saya.
+          </p>
+        </section>
+        <section>
+          <h2>• PENGALAMAN</h2>
+          <p><strong>Juli 2018 - Agustus 2019</strong><br>PR UKM Koperasi Kampus</p>
+          <p><strong>April 2020 - Agustus 2020</strong><br>Magang di Studio Shodwe</p>
+        </section>
+        <section>
+          <h2>• KONTAK</h2>
+          <p>📞 123-456-7890</p>
+          <p>✉️ hello@reallygreatsite.com</p>
+          <p>🌐 www.reallygreatsite.com</p>
+        </section>
+      </div>
+
+      <!-- Kanan -->
+      <div class="right">
+        <section>
+          <h2>• PENDIDIKAN</h2>
+          <p><strong>2017 - 2021</strong><br>Universitas Larana<br>S1 Manajemen</p>
+          <p><strong>2014 - 2017</strong><br>SMA Borcelle<br>Jurusan IPS</p>
+        </section>
+        <section>
+          <h2>• KESUKAAN</h2>
+          <ul>
+            <li>Mendengarkan Musik</li>
+            <li>Menonton Konser</li>
+            <li>Menonton Film</li>
+            <li>Fotografi</li>
+          </ul>
+        </section>
+        <section>
+          <h2>• KEAHLIAN</h2>
+          <ul>
+            <li>Bercerita</li>
+            <li>Berdiskusi</li>
+            <li>Pembicara Publik</li>
+            <li>Pemecah Masalah</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
