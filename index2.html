@@ -11,10 +11,10 @@
     <!-- Header -->
     <div class="header">
       <div class="photo">
-        <img src="foto.jpg" alt="Foto Profil" />
+        <img src="img/zahra.jpg" alt="Foto Profil" />
       </div>
       <div class="name">
-        <h1>SEBASTIAN<br>BENNETT</h1>
+        <h1>AZZAHRA<br>CAHYA</h1>
       </div>
     </div>
 
@@ -24,13 +24,12 @@
   <h2>Hubungi Saya</h2>
   <form name="contact-form">
     <label for="nama">Nama</label>
-    <input type="text" id="nama" name="nama" required />
+    <input type="text" id="nama" name="nama" />
 
     <label for="email">Email</label>
-    <input type="email" id="email" name="email" required />
-
+    <input type="email" id="email" name="email" />
     <label for="pesan">Pesan</label>
-    <textarea id="pesan" name="pesan" rows="5" required></textarea>
+    <textarea id="pesan" name="pesan" rows="5"></textarea>
 
     <button type="submit" id="btn-submit">
       Kirim
@@ -89,5 +88,30 @@
       </div>
     </div>
   </div>
+  <script>
+      const scriptURL = "https://script.google.com/macros/s/AKfycbwOBoqMWztab92rbC143Dnj01O8bMzGpkc_iL8-_vwtBXztvIkbcuwI1zo1gf7NImZp9Q/exec";
+      const form = document.forms["contact-form"];
+
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            form.reset();
+            console.log("Success!", response);
+          })
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
+
+    <script type="text/javascript" src="js/vanilla-tilt.min.js"></script>
+    <script type="text/javascript">
+      VanillaTilt.init(document.querySelectorAll(".keyboard-box"), {
+        max: 35,
+        speed: 1000,
+        glare: true,
+      });
+    </script>
+  </body>
 </body>
 </html>
