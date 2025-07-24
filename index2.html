@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV Sebastian Bennett</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>p</h1>
+  <script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzw-QQXM-lajjTXIJcNfbjMM1oSBkoOmevjBicgtuKvwDw1jQNoQAjkZOTBFoI0UaYrlQ/exec';
+  const form = document.forms['contact-form'];
+  const btn = document.getElementById('btn-submit');
+  const notif = document.getElementById('notif');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.innerText = 'Mengirim...';
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+      .then((response) => {
+        btn.disabled = false;
+        btn.innerText = 'Kirim';
+        form.reset();
+        notif.style.display = 'inline';
+        setTimeout(() => {
+          notif.style.display = 'none';
+        }, 4000);
+        console.log('Success!', response);
+      })
+      .catch((error) => {
+        btn.disabled = false;
+        btn.innerText = 'Kirim';
+        alert('Terjadi kesalahan! Silakan coba lagi.');
+        console.error('Error!', error.message);
+      });
+  });
+</script>
+
+
+</body>
+</html>
