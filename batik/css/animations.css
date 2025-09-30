@@ -1,0 +1,508 @@
+/* ============================================
+   BATIK GALLERY - ANIMATIONS.CSS
+   File CSS untuk semua animasi website
+   ============================================ */
+
+/* 1. KEYFRAME ANIMATIONS */
+/* ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(218, 165, 32, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(218, 165, 32, 0.8),
+                    0 0 30px rgba(218, 165, 32, 0.6);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+/* 2. LOADING ANIMATIONS */
+/* ============================================ */
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(218, 165, 32, 0.2);
+    border-top: 4px solid #DAA520;
+    border-radius: 50%;
+    animation: rotate 1s linear infinite;
+}
+
+.loader-text {
+    color: #DAA520;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* 3. PAGE TRANSITION */
+/* ============================================ */
+
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #DAA520;
+    z-index: 9998;
+    transform: translateY(-100%);
+    transition: transform 0.5s ease;
+}
+
+.page-transition.active {
+    transform: translateY(0);
+}
+
+/* 4. NAVBAR ANIMATIONS */
+/* ============================================ */
+
+.navbar {
+    animation: slideDown 0.5s ease;
+}
+
+.menu li {
+    opacity: 0;
+    animation: fadeInLeft 0.5s ease forwards;
+}
+
+.menu li:nth-child(1) { animation-delay: 0.1s; }
+.menu li:nth-child(2) { animation-delay: 0.2s; }
+.menu li:nth-child(3) { animation-delay: 0.3s; }
+.menu li:nth-child(4) { animation-delay: 0.4s; }
+.menu li:nth-child(5) { animation-delay: 0.5s; }
+
+.brand {
+    animation: fadeInLeft 0.6s ease;
+}
+
+/* 5. HERO SECTION ANIMATIONS */
+/* ============================================ */
+
+.hero-content {
+    animation: fadeInUp 1s ease 0.3s both;
+}
+
+.hero-title {
+    animation: fadeInUp 1s ease 0.5s both;
+}
+
+.hero-subtitle {
+    animation: fadeInUp 1s ease 0.7s both;
+}
+
+.hero-button {
+    animation: fadeInUp 1s ease 0.9s both;
+}
+
+/* 6. CARD ANIMATIONS */
+/* ============================================ */
+
+.stat-box,
+.batik-card,
+.gallery-item {
+    transition: all 0.4s ease;
+    animation: fadeIn 0.6s ease both;
+}
+
+.stat-box:hover,
+.batik-card:hover,
+.gallery-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(218, 165, 32, 0.4);
+}
+
+/* Stagger animation untuk cards */
+.stat-box:nth-child(1) { animation-delay: 0.1s; }
+.stat-box:nth-child(2) { animation-delay: 0.2s; }
+.stat-box:nth-child(3) { animation-delay: 0.3s; }
+.stat-box:nth-child(4) { animation-delay: 0.4s; }
+.stat-box:nth-child(5) { animation-delay: 0.5s; }
+.stat-box:nth-child(6) { animation-delay: 0.6s; }
+
+/* 7. IMAGE ANIMATIONS */
+/* ============================================ */
+
+.batik-image,
+.gallery-image {
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.batik-card:hover .batik-image,
+.gallery-item:hover .gallery-image {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+
+/* Image reveal effect */
+.image-reveal {
+    overflow: hidden;
+    position: relative;
+}
+
+.image-reveal::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #DAA520;
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.image-reveal.revealed::after {
+    transform: translateX(100%);
+}
+
+/* 8. TEXT ANIMATIONS */
+/* ============================================ */
+
+.section-header h2 {
+    animation: fadeInUp 0.8s ease;
+}
+
+.section-header p {
+    animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.divider {
+    width: 0;
+    animation: expandWidth 1s ease 0.4s forwards;
+}
+
+@keyframes expandWidth {
+    to {
+        width: 100px;
+    }
+}
+
+/* Typing effect */
+.typing-effect {
+    overflow: hidden;
+    border-right: 3px solid #DAA520;
+    white-space: nowrap;
+    animation: typewriter 3s steps(40) 0.5s both,
+               blink 0.75s step-end infinite;
+}
+
+/* 9. BUTTON ANIMATIONS */
+/* ============================================ */
+
+.btn,
+.batik-tag,
+button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn:hover,
+.batik-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.4);
+}
+
+.btn::before,
+.batik-tag::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before,
+.batik-tag:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* 10. SCROLL ANIMATIONS */
+/* ============================================ */
+
+.scroll-to-top {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.scroll-to-top:hover {
+    animation: none;
+}
+
+/* Progress bar animation */
+.progress-bar {
+    transition: width 0.3s ease;
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* 11. FORM ANIMATIONS */
+/* ============================================ */
+
+.form-group {
+    animation: fadeInUp 0.6s ease both;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.1s; }
+.form-group:nth-child(2) { animation-delay: 0.2s; }
+.form-group:nth-child(3) { animation-delay: 0.3s; }
+.form-group:nth-child(4) { animation-delay: 0.4s; }
+
+input:focus,
+textarea:focus {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+}
+
+/* 12. FOOTER ANIMATIONS */
+/* ============================================ */
+
+.footer {
+    animation: fadeInUp 0.8s ease;
+}
+
+.social-links a {
+    transition: all 0.3s ease;
+    animation: fadeIn 0.5s ease both;
+}
+
+.social-links a:nth-child(1) { animation-delay: 0.1s; }
+.social-links a:nth-child(2) { animation-delay: 0.2s; }
+.social-links a:nth-child(3) { animation-delay: 0.3s; }
+.social-links a:nth-child(4) { animation-delay: 0.4s; }
+
+.social-links a:hover {
+    transform: translateY(-5px) rotate(5deg) scale(1.2);
+}
+
+/* 13. SPECIAL EFFECTS */
+/* ============================================ */
+
+/* Shimmer effect */
+.shimmer {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* Floating effect */
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse effect */
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Glow effect */
+.glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* 14. MOBILE ANIMATIONS */
+/* ============================================ */
+
+@media (max-width: 768px) {
+    .stat-box,
+    .batik-card,
+    .gallery-item {
+        animation: fadeInUp 0.6s ease both;
+    }
+    
+    .menu li {
+        animation: fadeIn 0.4s ease forwards;
+    }
+}
+
+/* 15. ACCESSIBILITY - Reduce motion */
+/* ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* 16. UTILITY CLASSES */
+/* ============================================ */
+
+.animate-fade-in { animation: fadeIn 0.6s ease both; }
+.animate-fade-in-up { animation: fadeInUp 0.8s ease both; }
+.animate-fade-in-left { animation: fadeInLeft 0.8s ease both; }
+.animate-fade-in-right { animation: fadeInRight 0.8s ease both; }
+.animate-scale-in { animation: scaleIn 0.6s ease both; }
+.animate-slide-down { animation: slideDown 0.6s ease both; }
+
+/* Delay utilities */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* Duration utilities */
+.duration-fast { animation-duration: 0.3s; }
+.duration-normal { animation-duration: 0.6s; }
+.duration-slow { animation-duration: 1s; }

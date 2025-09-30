@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Koleksi Batik Indonesia - Berbagai Motif Batik Nusantara">
+    <title>Koleksi Batik - Batik Gallery</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <style>
+        /* Parallax Scroll Effect */
+        .parallax-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hover Effect Enhancement */
+        .gallery-item {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .gallery-item img {
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1) rotateY(5deg);
+        }
+
+        /* Shimmer Loading Effect */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .loading-shimmer {
+            animation: shimmer 2s infinite;
+            background: linear-gradient(90deg, rgba(218,165,32,0.1) 0%, rgba(218,165,32,0.3) 50%, rgba(218,165,32,0.1) 100%);
+            background-size: 1000px 100%;
+        }
+
+        /* Fade-in Animation for Gallery Items */
+        .gallery-item {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Floating Animation for Region Tags */
+        .region-tag {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Glowing Border Effect on Hover */
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #DAA520, #FFD700, #DAA520);
+            border-radius: 10px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s;
+            filter: blur(10px);
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        /* Search Box Enhancement */
+        .search-box input {
+            position: relative;
+        }
+
+        .search-box input:focus {
+            animation: pulse 1s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(218, 165, 32, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(218, 165, 32, 0.6); }
+        }
+
+        /* Filter Button Active Animation */
+        .filter-btn.active {
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Modal Enhancement */
+        .modal {
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            animation: modalSlideIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-100px) scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Gallery Item Counter */
+        .gallery-counter {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 20px;
+            color: #DAA520;
+            font-weight: bold;
+        }
+
+        /* Image Zoom on Modal */
+        .modal-image-placeholder {
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-image-placeholder.zoomed {
+            transform: scale(1.5);
+            cursor: zoom-out;
+        }
+
+        /* Tooltip Enhancement */
+        .gallery-item {
+            position: relative;
+        }
+
+        .gallery-item::after {
+            content: 'Klik untuk detail';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(218, 165, 32, 0.9);
+            color: #0f0f0f;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        /* Scroll Progress for Gallery */
+        .gallery-progress {
+            position: fixed;
+            top: 90px;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #DAA520, #FFD700);
+            z-index: 999;
+            transition: width 0.1s ease;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #0a0a0a;
+        }
+
+        /* NAVBAR STYLING */
+        .navbar {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 1rem 0;
+            border-bottom: 2px solid #DAA520;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            color: #DAA520;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .menu li {
+            position: relative;
+        }
+
+        .menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
+            display: block;
+        }
+
+        /* HOVER EFFECT */
+        .menu a:hover {
+            color: #DAA520;
+        }
+
+        /* ACTIVE STATE - INI YANG PENTING! */
+        .menu a.active {
+            color: #DAA520;
+            font-weight: bold;
+        }
+
+        /* Underline animation untuk active */
+        .menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 2px;
+            background: #DAA520;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 80%;
+            }
+        }
+
+        /* DEMO CONTENT */
+        .content {
+            padding-top: 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 2rem 2rem;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .demo-section h2 {
+            color: #DAA520;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .demo-section p {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #DAA520;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            color: #4ec9b0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #DAA520;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .menu {
+                gap: 1rem;
+            }
+
+            .menu a {
+                font-size: 0.85rem;
+                padding: 0.3rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Gallery Progress Bar -->
+    <div class="gallery-progress" id="galleryProgress"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="brand">BATIK GALLERY</div>
+        <ul class="menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="koleksi.html">KOLEKSI</a></li>
+            <li><a href="sejarah.html">SEJARAH</a></li>
+            <li><a href="pengertian.html" class="active">PENGERTIAN</a></li>
+            <li><a href="kontak.html">KONTAK</a></li>
+        </ul>
+    </nav>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section" style="padding-top: 140px;">
+        <div class="section-header">
+            <h2>KOLEKSI EKSKLUSIF</h2>
+            <div class="divider"></div>
+            <p>Setiap motif batik menyimpan cerita dan filosofi mendalam dari berbagai penjuru Nusantara</p>
+        </div>
+
+        <!-- Search & Filter -->
+        <div class="search-filter-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Cari batik berdasarkan nama atau daerah..." onkeyup="searchBatik()">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterBatik('all')">Semua</button>
+                <button class="filter-btn" onclick="filterBatik('Yogyakarta')">Yogyakarta</button>
+                <button class="filter-btn" onclick="filterBatik('Solo')">Solo</button>
+                <button class="filter-btn" onclick="filterBatik('Pekalongan')">Pekalongan</button>
+                <button class="filter-btn" onclick="filterBatik('Madura')">Madura</button>
+            </div>
+            <!-- Gallery Counter -->
+            <div class="gallery-counter" id="galleryCounter">Menampilkan 6 dari 6 Batik</div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery" id="galleryContainer">
+            <div class="gallery-item" data-region="Yogyakarta" onclick="openModal('Batik Truntum', 'Yogyakarta', 'Melambangkan cinta yang tumbuh kembali. Motif ini sering digunakan dalam upacara pernikahan sebagai simbol kasih sayang yang tak pernah padam.', 'Truntum berarti tuntun atau menuntun. Filosofinya adalah tentang cinta yang tulus, bijaksana, dan membimbing. Digunakan oleh orang tua pengantin sebagai doa agar dapat membimbing anak-anaknya dengan penuh kasih sayang.')">
+                <div class="gallery-item-bg">
+                    <img src="image/batik/truntum.jpg" alt="Batik Truntum" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Batik Truntum</h3>
+                    <p>Melambangkan cinta yang tumbuh kembali. Motif ini sering digunakan dalam upacara pernikahan sebagai simbol kasih sayang yang tak pernah padam.</p>
+                    <span class="region-tag">Yogyakarta</span>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-region="Solo" onclick="openModal('Batik Sogan', 'Solo, Jawa Tengah', 'Dengan warna coklat klasik yang elegan, Sogan merupakan batik tertua yang mencerminkan kesederhanaan dan kebijaksanaan leluhur Jawa.', 'Sogan dengan warna coklat alami dari kulit pohon soga melambangkan kesederhanaan, keteguhan, dan kebijaksanaan. Batik ini dahulu hanya boleh dikenakan oleh kalangan keraton sebagai simbol status sosial.')">
+                <div class="gallery-item-bg">
+                    <img src="image/batik/sogan.jpg" alt="Batik Sogan" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Batik Sogan</h3>
+                    <p>Dengan warna coklat klasik yang elegan, Sogan merupakan batik tertua yang mencerminkan kesederhanaan dan kebijaksanaan leluhur Jawa.</p>
+                    <span class="region-tag">Solo, Jawa Tengah</span>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-region="Pekalongan" onclick="openModal('Batik Tiga Negeri', 'Pekalongan - Lasem - Solo', 'Masterpiece kolaborasi tiga kota: Pekalongan, Lasem, dan Solo. Proses pembuatannya yang kompleks menghasilkan perpaduan warna yang memukau.', 'Batik Tiga Negeri adalah hasil perpaduan teknik dan warna dari tiga kota. Proses pembuatannya memerlukan waktu berbulan-bulan karena kain harus berpindah dari satu kota ke kota lainnya untuk proses pewarnaan yang berbeda.')">
+                <div class="gallery-item-bg">
+                    <img src="image/batik/tiganegeri.jpg" alt="Batik Tiga Negeri" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Batik Tiga Negeri</h3>
+                    <p>Masterpiece kolaborasi tiga kota: Pekalongan, Lasem, dan Solo. Proses pembuatannya yang kompleks menghasilkan perpaduan warna yang memukau.</p>
+                    <span class="region-tag">Pekalongan - Lasem - Solo</span>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-region="Yogyakarta" onclick="openModal('Batik Sidoluhur', 'Yogyakarta', 'Motif klasik yang melambangkan keluhuran budi pekerti dan harapan baik. Sering dikenakan dalam acara-acara penting sebagai doa keselamatan.', 'Sido berarti jadi atau menjadi, luhur berarti mulia. Filosofinya adalah harapan agar pemakainya menjadi orang yang mulia, terhormat, dan berbudi luhur. Motif ini sering dipakai dalam acara pernikahan atau pelantikan.')">
+                <div class="gallery-item-bg">
+                    <img src="image/batik/sidoluhur.jpg" alt="Batik Sidoluhur" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Batik Sidoluhur</h3>
+                    <p>Motif klasik yang melambangkan keluhuran budi pekerti dan harapan baik. Sering dikenakan dalam acara-acara penting sebagai doa keselamatan.</p>
+                    <span class="region-tag">Yogyakarta</span>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-region="Bengkulu" onclick="openModal('Batik Besurek', 'Sumatera Barat (berkembang di Bengkulu)', 'Unik dengan ornamen kaligrafi Arab, batik ini memadukan unsur Islam dengan tradisi lokal Bengkulu, menciptakan identitas budaya yang khas.', 'Besurek berasal dari kata Arab surat yang berarti tulisan. Motifnya mengandung kaligrafi Arab yang dipadukan dengan motif flora dan fauna. Ini menunjukkan akulturasi budaya Islam dengan tradisi lokal.')">
+                <div class="gallery-item-bg">
+                    <img src="image/batik/besurek.jpg" alt="Batik Besurek" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Batik Besurek</h3>
+                    <p>Unik dengan ornamen kaligrafi Arab, batik ini memadukan unsur Islam dengan tradisi lokal Bengkulu, menciptakan identitas budaya yang khas.</p>
+                    <span class="region-tag">Sumatera Barat (berkembang di Bengkulu)</span>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-region="Madura" onclick="openModal('Batik Gentongan', 'Sumenep, Madura', 'Batik cap dengan teknik celup warna menggunakan gentong. Warna-warna natural menghasilkan corak yang ramah lingkungan dan artistik.', 'Dinamakan Gentongan karena proses pewarnaannya menggunakan gentong besar. Teknik ini menghasilkan warna-warna natural yang khas Madura dengan motif yang berani dan ekspresif.')">
+                <div class="gallery-item-bg">
+                    <img src="image/batik/gentongan.jpg" alt="Batik Gentongan" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="gallery-overlay">
+                    <h3>Batik Gentongan</h3>
+                    <p>Batik cap dengan teknik celup warna menggunakan gentong. Warna-warna natural menghasilkan corak yang ramah lingkungan dan artistik.</p>
+                    <span class="region-tag">Sumenep, Madura</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer dengan Social Media Links -->
+<footer class="footer">
+    <div class="footer-content">
+        <h3>Lestarikan Batik Indonesia</h3>
+        <p>
+           Batik adalah identitas bangsa yang harus kita jaga bersama. Sejak berabad-abad lalu, batik menjadi simbol kreativitas, doa, nilai moral, dan kearifan lokal masyarakat Nusantara.
+        </p>
+        
+        <!-- Social Links dengan Icon yang Lebih Detail -->
+        <div class="social-links" style="margin-top: 30px;">
+            <!-- Instagram -->
+            <a href="https://instagram.com/azzahra_cahya_d" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Follow di Instagram">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+            </a>
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/6283805439397" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="Chat di WhatsApp">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/zahra031208" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="Lihat di GitHub">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+            </a>
+
+            <!-- Email (Opsional) -->
+            <a href="mailto:your.zhraachyaa@gmail.com" aria-label="Email" title="Kirim Email">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+            </a>
+        </div>
+
+        <div class="copyright">
+            © 2025 Batik Gallery Indonesia. Preserving Indonesian Heritage.<br>
+            Azzahra Cahya Desylenta 04 | XI PPLG 2
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Modal Detail Batik -->
+    <div id="batikModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <div class="modal-image-placeholder"></div> 
+                </div>
+                <div class="modal-text">
+                    <h2 id="modalTitle">Batik Title</h2>
+                    <div class="modal-info">
+                        <p><strong>Asal:</strong> <span id="modalRegion">Region</span></p>
+                        <p><strong>Jenis:</strong> Batik Klasik</p>
+                    </div>
+                    <p id="modalDescription">Description</p>
+                    <div class="modal-details">
+                        <h3>Filosofi & Makna</h3>
+                        <p id="modalPhilosophy">Philosophy text here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+
+    <!-- JavaScript -->
+    <script>
+        // Gallery Progress Bar
+        window.addEventListener('scroll', () => {
+            const gallerySection = document.getElementById('gallery');
+            const progressBar = document.getElementById('galleryProgress');
+            
+            if (gallerySection) {
+                const rect = gallerySection.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                const sectionHeight = gallerySection.offsetHeight;
+                
+                if (rect.top < windowHeight && rect.bottom > 0) {
+                    const scrolled = Math.min(Math.max((windowHeight - rect.top) / (sectionHeight + windowHeight) * 100, 0), 100);
+                    progressBar.style.width = scrolled + '%';
+                }
+            }
+        });
+
+        // Update Gallery Counter
+        function updateGalleryCounter() {
+            const items = document.getElementsByClassName('gallery-item');
+            const visible = Array.from(items).filter(item => item.style.display !== 'none').length;
+            const total = items.length;
+            document.getElementById('galleryCounter').textContent = `Menampilkan ${visible} dari ${total} Batik`;
+        }
+
+        // Modal functions with Image Zoom
+        let isZoomed = false;
+        
+        function openModal(title, region, description, philosophy) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalRegion').textContent = region;
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('modalPhilosophy').textContent = philosophy;
+            document.getElementById('batikModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+            
+            // Add zoom functionality to modal image
+            const modalImage = document.querySelector('.modal-image-placeholder');
+            modalImage.onclick = function() {
+                this.classList.toggle('zoomed');
+                isZoomed = !isZoomed;
+            };
+        }
+
+        function closeModal() {
+            document.getElementById('batikModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scroll
+            isZoomed = false;
+            document.querySelector('.modal-image-placeholder').classList.remove('zoomed');
+        }
+
+        // Close modal with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('batikModal').style.display === 'block') {
+                closeModal();
+            }
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('batikModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Enhanced Search function with counter update
+        function searchBatik() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.getElementsByClassName('gallery-item');
+            let visibleCount = 0;
+            
+            for (let i = 0; i < items.length; i++) {
+                const title = items[i].querySelector('h3').textContent.toLowerCase();
+                const region = items[i].getAttribute('data-region').toLowerCase();
+                
+                if (title.includes(input) || region.includes(input)) {
+                    items[i].style.display = '';
+                    visibleCount++;
+                    // Re-trigger animation
+                    items[i].style.animation = 'none';
+                    setTimeout(() => {
+                        items[i].style.animation = `fadeInUp 0.6s ease forwards`;
+                    }, 10);
+                } else {
+                    items[i].style.display = 'none';
+                }
+            }
+            
+            // Update counter
+            const total = items.length;
+            document.getElementById('galleryCounter').textContent = `Menampilkan ${visibleCount} dari ${total} Batik`;
+            
+            // Show "tidak ditemukan" message if no results
+            if (visibleCount === 0) {
+                showNoResults();
+            } else {
+                hideNoResults();
+            }
+        }
+
+        // Enhanced Filter function with animation
+        function filterBatik(region) {
+            const items = document.getElementsByClassName('gallery-item');
+            const buttons = document.getElementsByClassName('filter-btn');
+            let visibleCount = 0;
+            
+            // Update active button with animation
+            for (let btn of buttons) {
+                btn.classList.remove('active');
+            }
+            event.target.classList.add('active');
+            
+            // Filter items with stagger animation
+            for (let i = 0; i < items.length; i++) {
+                if (region === 'all' || items[i].getAttribute('data-region').includes(region)) {
+                    items[i].style.display = '';
+                    visibleCount++;
+                    // Stagger animation
+                    items[i].style.animation = 'none';
+                    setTimeout(() => {
+                        items[i].style.animation = `fadeInUp 0.6s ease forwards`;
+                        items[i].style.animationDelay = `${i * 0.1}s`;
+                    }, 10);
+                } else {
+                    items[i].style.display = 'none';
+                }
+            }
+            
+            // Update counter
+            updateGalleryCounter();
+        }
+
+        // No results message
+        function showNoResults() {
+            if (!document.getElementById('noResults')) {
+                const noResults = document.createElement('div');
+                noResults.id = 'noResults';
+                noResults.style.cssText = `
+                    text-align: center;
+                    padding: 60px 20px;
+                    color: #DAA520;
+                    font-size: 20px;
+                    animation: fadeInUp 0.6s ease;
+                `;
+                noResults.innerHTML = `
+                    <div style="font-size: 60px; margin-bottom: 20px;">🔍</div>
+                    <h3 style="margin-bottom: 10px;">Batik Tidak Ditemukan</h3>
+                    <p style="color: #888; font-size: 16px;">Coba kata kunci lain atau lihat semua koleksi</p>
+                `;
+                document.getElementById('galleryContainer').after(noResults);
+            }
+        }
+
+        function hideNoResults() {
+            const noResults = document.getElementById('noResults');
+            if (noResults) {
+                noResults.remove();
+            }
+        }
+
+        // Scroll to top with smooth animation
+        window.onscroll = function() {
+            const btn = document.querySelector('.scroll-to-top');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.opacity = '1';
+                btn.style.visibility = 'visible';
+            } else {
+                btn.style.opacity = '0';
+                btn.style.visibility = 'hidden';
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Parallax effect for gallery items
+        window.addEventListener('scroll', () => {
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * 0.3;
+                
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const img = item.querySelector('img');
+                    if (img) {
+                        img.style.transform = `translateY(${rate * 0.1}px)`;
+                    }
+                }
+            });
+        });
+
+        // Initialize counter on load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateGalleryCounter();
+        });
+    </script>
+
+       <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/image-handler.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/scroll-progress.js"></script>
+</body>
+</html>
