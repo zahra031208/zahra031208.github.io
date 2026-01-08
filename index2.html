@@ -6,7 +6,6 @@
     <title>Azzahra Cahya Desyienta - Portfolio</title>
     <link rel="stylesheet" href="style2.css" />
   </head>
-
   <body>
     <div class="container">
       <div class="left">
@@ -14,20 +13,18 @@
         <div class="profile-title">About Me</div>
         <div class="profile-desc">
           <br />
-          Halo! Nama saya Azzahra Cahya Desyienta, siswi dari SMKN 5 Malang, kelas 11 PPLG 2. Sejak kecil, saya selalu menyukai dunia seni dan kreativitas. Saya percaya bahwa seni bukan hanya sekadar hobi, tapi juga cara untuk
+           Halo! Nama saya Azzahra Cahya Desyienta, siswi dari SMKN 5 Malang, kelas 11 PPLG 2. Sejak kecil, saya selalu menyukai dunia seni dan kreativitas. Saya percaya bahwa seni bukan hanya sekadar hobi, tapi juga cara untuk
               mengekspresikan perasaan, ide, dan imajinasi. Saya memiliki ketertarikan besar di bidang fotografi, karena saya senang menangkap momen dan melihat keindahan dari sudut pandang berbeda. Kamera bagi saya seperti mata kedua, yang
               bisa membekukan waktu dan menyimpan cerita di setiap jepretannya.
           <br /><br />
-          Selain fotografi, saya juga memiliki hobi menggambar, baik itu sketsa manual maupun desain digital. Menggambar adalah dunia di mana saya bisa bebas berkreasi tanpa batas. Saya sering menggambar pemandangan, karakter, maupun
+              Selain fotografi, saya juga memiliki hobi menggambar, baik itu sketsa manual maupun desain digital. Menggambar adalah dunia di mana saya bisa bebas berkreasi tanpa batas. Saya sering menggambar pemandangan, karakter, maupun
               desain interior rumah yang saya impikan. Saya juga suka mempelajari hal baru, terutama yang berhubungan dengan desain grafis, teknologi, dan pengembangan diri. Kreativitas adalah bagian penting dalam hidup saya, dan saya
               percaya bahwa dengan terus belajar dan berlatih, saya bisa menghasilkan karya-karya yang menginspirasi orang lain. Di masa depan, saya ingin menggabungkan hobi fotografi dan menggambar saya dengan dunia teknologi, mungkin
-              dengan menjadi seorang desainer profesional, fotografer kreatif, atau bahkan mengembangkan portofolio desain yang lebih besar.
-        </div>
-
+              dengan menjadi seorang desainer profesional, fotografer kreatif, atau bahkan mengembangkan portofolio desain yang lebih besar.        </div>
         <div class="contact">
-          <div class="contact-item">📞 0838-0543-9397</div>
-          <div class="contact-item">✉️ zhraachyaa.@gmail.com</div>
-          <div class="contact-item">📍 Jl. Karya Barat</div>
+          <div class="contact-item"><span class="icon">📞</span><span>0838-0543-9397</span></div>
+          <div class="contact-item"><span class="icon">✉️</span><span>zhraachyaa.@gmail.com</span></div>
+          <div class="contact-item"><span class="icon">📍</span><span>Jl. Karya Barat</span></div>
         </div>
       </div>
 
@@ -44,7 +41,8 @@
             <h3>➤ Learning Journey</h3>
             <b>SMKN 5 MALANG - JURUSAN RPL</b>
             <p>
-              Saya belajar tentang pemrograman, pengembangan aplikasi, dan logika komputer serta aktif mengembangkan minat di bidang desain grafis dan art digital.
+              Saya belajar tentang pemrograman, pengembangan aplikasi, dan logika komputer. Di samping itu, saya juga aktif mengembangkan minat di bidang desain grafis dan art digital sebagai ekspresi kreatif, seperti membuat ilustrasi,
+              poster, dan konten visual.
             </p>
           </div>
 
@@ -55,37 +53,32 @@
 
           <div class="section">
             <h3>➤ COMPUTER SKILLS</h3>
-            <p>
-              Ilustrasi Digital<br />
-              Desain Poster & Feed Sosial Media<br />
-              Editing Foto Dasar<br />
-              Logo & Branding
-            </p>
+            <p>Ilustrasi Digital.<br />Desain poster & Feed Sosial Media.<br />Editing Foto Dasar.<br />Logo & Branding.</p>
           </div>
 
           <div class="section">
             <h3>➤ VOLUNTEER EXPERIENCE</h3>
-            <p>
-              Kontributor desain komunitas online melalui Telegram dan Instagram untuk karya bertema sosial dan edukatif.
-            </p>
+            <p>Kontributor Desain Komunitas Online — Ikut serta dalam komunitas desain di Telegram/Instagram untuk mengirim karya desain poster bertema sosial dan edukatif.</p>
           </div>
         </div>
 
+        <!-- Contact Me Section -->
         <section id="contact">
           <h2>Contact Me</h2>
-          <form>
-            <label class="form-label">Nama Lengkap</label>
-            <input type="text" class="form-control" required />
+          <form name="contact-form">
+            <label for="name" class="form-label">Nama Lengkap</label>
+            <input type="text" id="name" name="nama" class="form-control" required />
 
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" required />
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" class="form-control" required />
 
-            <label class="form-label">Pesan</label>
-            <textarea class="form-control" rows="4" required></textarea>
+            <label for="pesan" class="form-label">Pesan</label>
+            <textarea id="pesan" name="pesan" class="form-control" rows="4" required></textarea>
 
             <button type="submit">Kirim</button>
           </form>
         </section>
+        <!-- End Contact Me Section -->
       </div>
     </div>
   </body>
