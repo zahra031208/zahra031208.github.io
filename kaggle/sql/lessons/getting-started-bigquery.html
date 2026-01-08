@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelajaran 01 - Mulai dengan SQL & BigQuery</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">kaggle</div>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html">Kembali ke kursus</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="course-page-header">
+        <p class="eyebrow">Pelajaran 01</p>
+        <h1>Mulai dengan SQL & BigQuery</h1>
+        <p class="hero-copy">Kenali alur dasar BigQuery: membuat client, menjelajah dataset publik, memeriksa skema tabel, dan mempratinjau baris sebelum menulis query besar.</p>
+      </div>
+
+      <article class="lesson-detail">
+        <h2>Pendahuluan</h2>
+        <p>Structured Query Language (SQL) adalah bahasa utama untuk berinteraksi dengan database. Di Kaggle Learn, kita menggunakan BigQuerylayanan berbasis web yang mampu menjalankan SQL pada dataset berukuran terabitauntuk melatih keterampilan ini.</p>
+        <p>Pelajaran ini berfokus pada cara mengakses dan memeriksa dataset BigQuery sehingga Anda siap membangun query lebih kompleks di materi berikutnya.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Perintah BigQuery Pertama</h2>
+        <p>Kita bekerja di lingkungan notebook Kaggle yang sudah menyiapkan kredensial BigQuery. Langkah pertama adalah mengimpor paket resmi dan membuat objek <code>Client</code> yang akan menangani seluruh permintaan.</p>
+        <pre><code>from google.cloud import bigquery
+
+# Membuat objek Client
+client = bigquery.Client()
+        </code></pre>
+        <p>Client inilah yang akan kita gunakan untuk merujuk dataset, mengakses tabel, dan menjalankan query.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Mengakses Dataset Publik</h2>
+        <p>Contoh yang digunakan di kursus ini berasal dari kumpulan data <code>hacker_news</code> dalam project <code>bigquery-public-data</code>. Setiap dataset berada di dalam sebuah project, dan kita perlu membuat referensi sebelum mengaksesnya.</p>
+        <pre><code># Referensi ke dataset "hacker_news"
+dataset_ref = client.dataset("hacker_news", project="bigquery-public-data")
+
+# Permintaan API untuk mengambil dataset
+dataset = client.get_dataset(dataset_ref)
+        </code></pre>
+        <p>Setiap dataset adalah kumpulan tabel. Gunakan <code>list_tables()</code> untuk melihat daftar tabel yang tersedia.</p>
+        <pre><code>tables = list(client.list_tables(dataset))
+for table in tables:
+    print(table.table_id)
+# comments, full, full_201510, stories
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Mengambil Tabel</h2>
+        <p>Setelah dataset diketahui, kita dapat mengambil salah satu tabel di dalamnya. Pada contoh ini kita menggunakan tabel <code>full</code>.</p>
+        <pre><code># Referensi ke tabel "full"
+table_ref = dataset_ref.table("full")
+
+# Ambil objek tabel dari BigQuery
+table = client.get_table(table_ref)
+        </code></pre>
+        <p>Diagram alur first_commands merangkum proses: buat Client  referensikan dataset  daftar tabel  ambil tabel  cek skema.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Memahami Skema</h2>
+        <p>Skema mendeskripsikan struktur tabel. Gunakan <code>table.schema</code> untuk menampilkan daftar <code>SchemaField</code>.</p>
+        <pre><code>table.schema
+# [SchemaField('title', 'STRING', 'NULLABLE', 'Story title', ...),
+#  SchemaField('url', 'STRING', ...), ...]
+        </code></pre>
+        <p>Setiap <code>SchemaField</code> berisi nama kolom, tipe data, mode (misalnya NULLABLE), dan deskripsi. Misalnya:</p>
+        <pre><code>SchemaField('by', 'STRING', 'NULLABLE', "The username of the item's author.")
+        </code></pre>
+        <p>Artinya kolom bernama <code>by</code>, bertipe string, memperbolehkan NULL, dan menyimpan username penulis.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Pratinjau Isi Tabel</h2>
+        <p>Gunakan <code>list_rows()</code> untuk melihat sebagian baris dan memastikan deskripsi kolom akurat. Hasilnya berupa <code>RowIterator</code> yang dapat dikonversi menjadi DataFrame pandas.</p>
+        <pre><code># 5 baris pertama dari tabel "full"
+client.list_rows(table, max_results=5).to_dataframe()
+        </code></pre>
+        <p>Peringatan yang muncul (tentang <code>bqstorage_client</code>) normal karena kita memberi batas hasil sehingga BigQuery memakai endpoint berbeda.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Pratinjau Kolom Tertentu</h2>
+        <p>Kita bisa fokus pada kolom tertentu dengan parameter <code>selected_fields</code> agar tidak mengambil seluruh tabel.</p>
+        <pre><code># 5 entri pertama kolom "by"
+client.list_rows(
+    table,
+    selected_fields=table.schema[:1],
+    max_results=5
+).to_dataframe()
+        </code></pre>
+        <p>Cara ini berguna untuk memeriksa kolom yang ingin digunakan tanpa membaca seluruh tabel.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Pengingat Kuota</h2>
+        <p>Kaggle memberikan kuota gratis 5 TB data yang boleh di-scan setiap 30 hari. Gerakan eksplorasi di atas sangat ringan dan aman dijalankan kapan saja, tetapi tetap ikuti praktik terbaik berikut:</p>
+        <ul>
+          <li>Hindari <code>SELECT *</code> pada tabel masif tanpa filter.</li>
+          <li>Gunakan <code>LIMIT</code> dan <code>WHERE</code> untuk mengecilkan volume data.</li>
+          <li>Simpan query yang sudah siap pakai agar tidak perlu menjalankannya berulang.</li>
+        </ul>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Ringkasan</h2>
+        <p>Setelah pelajaran ini Anda seharusnya mampu:</p>
+        <ul>
+          <li>Menginisiasi Client BigQuery dan menghubungkannya dengan dataset publik.</li>
+          <li>Menelusuri daftar tabel, membaca skema, serta mempratinjau baris atau kolom tertentu.</li>
+          <li>Mengelola kuota dengan disiplin menggunakan LIMIT dan filter sejak awal.</li>
+        </ul>
+        <p>Langkah selanjutnya adalah menulis query SQL penuh untuk memilih kolom dan menyaring baris.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

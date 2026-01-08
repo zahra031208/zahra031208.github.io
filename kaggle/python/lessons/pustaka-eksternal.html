@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelajaran 07 - Pustaka Eksternal</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">kaggle</div>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html">Kembali ke kursus</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="course-page-header">
+        <p class="eyebrow">Pelajaran 07</p>
+        <h1>Pustaka Eksternal</h1>
+        <p class="hero-copy">Import membuka akses ke pustaka standard maupun pihak ketiga seperti math, numpy, pandas, dan tensorflow. Pelajaran ini memandu sintaks import, submodul, dan cara membaca objek asing.</p>
+      </div>
+
+      <article class="lesson-detail">
+        <h2>Mengapa Import?</h2>
+        <p>Selain tipe bawaan, Python punya ribuan library. Sebagian berada di standard library, sisanya dipasang lewat <code>pip</code>. Semuanya diakses melalui kata kunci <code>import</code>.</p>
+        <pre><code>import math
+
+print("It's math! It has type {}".format(type(math)))
+        </code></pre>
+        <p>Output menunjukkan bahwa <code>math</code> adalah modul (namespace berisi variabel dan fungsi).</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Menyelami Modul <code>math</code></h2>
+        <p>Lihat seluruh nama yang tersedia dengan <code>dir()</code>, lalu akses via dot notation.</p>
+        <pre><code>print(dir(math))
+print("pi ke 4 digit signifikan = {:.4}".format(math.pi))
+print(math.log(32, 2))
+help(math.log)
+        </code></pre>
+        <p><code>help(math)</code> menampilkan dokumentasi gabungan untuk seluruh anggota modul.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Sintaks Import Alternatif</h2>
+        <p>Alih nama modul agar lebih singkat atau impor simbol spesifik.</p>
+        <pre><code>import math as mt
+print(mt.pi)
+
+from math import log, pi
+print(pi, log(32, 2))
+        </code></pre>
+        <p><code>from module import *</code> membuat semua nama tersedia langsung, namun berisiko bentrok.</p>
+        <pre><code>from math import *
+from numpy import *
+print(pi, log(32, 2))  # TypeError: fungsi log numpy menimpa versi math
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Submodul dan Namespace Bersarang</h2>
+        <p>Modul dapat berisi modul lain. Contoh, <code>numpy.random</code> adalah submodul.</p>
+        <pre><code>import numpy
+print(type(numpy.random))
+print(dir(numpy.random)[-10:])
+
+rolls = numpy.random.randint(low=1, high=6, size=10)
+print(rolls)
+        </code></pre>
+        <p>Pemanggilan butuh dua titik: <code>numpy.random.randint</code>.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Panduan Mengenal Objek Aneh</h2>
+        <p>Gunakan tiga fungsi bawaan untuk memahami tipe baru: <code>type()</code>, <code>dir()</code>, dan <code>help()</code>.</p>
+        <pre><code>type(rolls)          # numpy.ndarray
+print(dir(rolls))
+print(rolls.mean())
+print(rolls.tolist())
+help(rolls.ravel)
+        </code></pre>
+        <p><code>help(rolls)</code> menampilkan dokumentasi lengkap mengenai <code>ndarray</code>.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Operator Overloading</h2>
+        <p>Tipe custom dapat mendefinisikan ulang operator.</p>
+        <pre><code>[3, 4, 1] + 10  # TypeError
+rolls + 10      # setiap elemen ditambah 10
+
+rolls <= 3      # menghasilkan array boolean
+xlist = [[1, 2, 3], [2, 4, 6]]
+x = numpy.asarray(xlist)
+print(x[1, -1])
+print(xlist[1, -1])  # TypeError: list tidak mendukung tuple indexing
+        </code></pre>
+        <p><code>ndarray</code> mendukung indexing multi dimensi karena perancangnya memang meng-overload operator terkait.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Kejutan TensorFlow</h2>
+        <pre><code>import tensorflow as tf
+
+a = tf.constant(1)
+b = tf.constant(1)
+print(a + b)
+        </code></pre>
+        <p>Hasilnya bukan angka 2, melainkan <code>tf.Tensor</code> yang merupakan handle simbolik ke operasi penjumlahan. Banyak library (termasuk pandas) memanfaatkan operator overloading secara kreatif.</p>
+        <pre><code># Contoh di pandas (pseudo)
+df[(df['population'] > 10**6) & (df['continent'] == 'South America')]
+        </code></pre>
+        <p>Ekspresi tersebut mengandalkan beberapa operator yang telah dioverride.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Memahami Nama Magic</h2>
+        <p><code>dir(list)</code> menampilkan banyak metode dengan double underscore seperti <code>__contains__</code> atau <code>__add__</code>. Metode inilah yang dipanggil Python saat Anda memakai operator.</p>
+        <pre><code>print('__contains__' in dir(list))
+print([1, 2, 3].__contains__(2))  # True, ekuivalen dengan 2 in [1, 2, 3]
+        </code></pre>
+        <p>Mengetahui konvensi ini membantu saat membaca dokumentasi tipe khusus.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Ringkasan</h2>
+        <p>Gunakan import untuk membuka kemampuan baru, pahami namespace modul dengan <code>dir()</code> dan <code>help()</code>, berhati-hatilah terhadap <code>from module import *</code>, dan ingat bahwa operator bisa berperilaku beda pada tiap tipe. Dengan pemahaman ini, Anda akan lebih percaya diri menjelajah ekosistem Python yang luas.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

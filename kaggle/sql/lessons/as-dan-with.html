@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelajaran 05 - AS & WITH</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">kaggle</div>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html">Kembali ke kursus</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <a class="back-link" href="../index.html#lesson-5">Kembali ke Daftar Pelajaran</a>
+      <div class="course-page-header">
+        <p class="eyebrow">Pelajaran 05</p>
+        <h1>AS & WITH</h1>
+        <p class="hero-copy">Gunakan alias dan common table expression (CTE) untuk membuat query kompleks tetap rapi serta mudah diuji.</p>
+      </div>
+
+      <article class="lesson-detail">
+        <h2>Alias Kolom</h2>
+        <p><code>AS</code> mengganti nama kolom di hasil akhir.</p>
+        <pre><code>SELECT
+  customer_id AS id_pelanggan,
+  SUM(amount) AS total_belanja
+FROM `datasetku.transactions`
+GROUP BY customer_id;</code></pre>
+        <p>Alias dapat dipakai kembali di klausa ORDER BY atau HAVING.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Alias Tabel</h2>
+        <p>Alias singkat mempermudah pembacaan query terutama saat melakukan join.</p>
+        <pre><code>SELECT o.order_id, c.city
+FROM `datasetku.orders` AS o
+JOIN `datasetku.customers` AS c
+  ON o.customer_id = c.customer_id;</code></pre>
+        <p>Anda boleh menghilangkan kata AS untuk tabel, namun menuliskannya membuat niat lebih jelas.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Common Table Expression</h2>
+        <p><code>WITH</code> mendefinisikan subquery bernama yang dapat dipakai berkali-kali.</p>
+        <pre><code>WITH populer AS (
+  SELECT product_id, SUM(qty) AS total
+  FROM `datasetku.order_items`
+  GROUP BY product_id
+  HAVING total &gt; 500
+)
+SELECT p.product_id, p.total
+FROM populer AS p
+ORDER BY p.total DESC;</code></pre>
+        <p>CTE dievaluasi seperti subquery biasa, tetapi lebih mudah diuji karena dapat dieksekusi sendiri.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>CTE Beruntun</h2>
+        <p>Anda bisa menumpuk beberapa CTE dan saling merujuk.</p>
+        <pre><code>WITH penjualan AS (...),
+     kota AS (...)
+SELECT ...
+FROM penjualan
+JOIN kota USING (city_id);</code></pre>
+        <p>Gunakan penamaan deskriptif agar rekan tim langsung memahami peran tiap blok.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Tips Refaktor</h2>
+        <ul>
+          <li>Gunakan CTE untuk memecah perhitungan panjang jadi langkah kecil.</li>
+          <li>Jika CTE sering dipakai di banyak query, pertimbangkan membuat <em>view</em>.</li>
+          <li>Saat debug, jalankan CTE satu per satu untuk memastikan hasilnya benar.</li>
+        </ul>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

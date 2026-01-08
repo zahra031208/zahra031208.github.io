@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelajaran 03 - Group By, Having & Count</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">kaggle</div>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html">Kembali ke kursus</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <a class="back-link" href="../index.html#lesson-3">Kembali ke Daftar Pelajaran</a>
+      <div class="course-page-header">
+        <p class="eyebrow">Pelajaran 03</p>
+        <h1>Group By, Having & Count</h1>
+        <p class="hero-copy">Pelajari cara meringkas data per kategori, menghitung metrik agregat, dan memfilter hasil agregasi.</p>
+      </div>
+
+      <article class="lesson-detail">
+        <h2>Fungsi Agregasi Dasar</h2>
+        <p>Gunakan <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>, <code>MIN</code>, dan <code>MAX</code> untuk menghasilkan ringkasan.</p>
+        <pre><code>SELECT
+  store_id,
+  SUM(total_sales) AS omzet,
+  AVG(basket_size) AS rata_keranjang
+FROM `datasetku.sales`
+GROUP BY store_id;</code></pre>
+        <p>Setiap kolom non-agregat harus disebut di klausa <code>GROUP BY</code>.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Mengontrol Level Agregasi</h2>
+        <p>Anda dapat mengelompokkan lebih dari satu kolom.</p>
+        <pre><code>GROUP BY store_id, DATE(order_ts)
+ORDER BY store_id, DATE(order_ts)</code></pre>
+        <p>Gunakan <code>ROLLUP</code> atau <code>GROUPING SETS</code> untuk total tambahan ketika dibutuhkan.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>COUNT vs COUNT(DISTINCT)</h2>
+        <p><code>COUNT(*)</code> menghitung baris termasuk nilai NULL, sedangkan <code>COUNT(column)</code> mengabaikan NULL. Gunakan <code>DISTINCT</code> bila ingin menghitung entitas unik.</p>
+        <pre><code>SELECT
+  region,
+  COUNT(*) AS total_order,
+  COUNT(DISTINCT customer_id) AS pelanggan_unik
+FROM `datasetku.orders`
+GROUP BY region;</code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Memfilter dengan HAVING</h2>
+        <p><code>WHERE</code> memfilter baris sebelum agregasi, sementara <code>HAVING</code> memfilter setelah agregasi.</p>
+        <pre><code>SELECT channel, SUM(amount) AS nilai
+FROM `datasetku.transactions`
+WHERE status = 'SUCCESS'
+GROUP BY channel
+HAVING SUM(amount) &gt; 5000000;</code></pre>
+        <p>Gunakan alias agregat di HAVING agar query lebih mudah dibaca.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Best Practice</h2>
+        <ul>
+          <li>Sertakan <code>ORDER BY</code> pada kolom agregat untuk menonjolkan kelompok bernilai besar.</li>
+          <li>Tambahkan <code>LIMIT</code> jika hanya perlu menampilkan top N kelompok.</li>
+          <li>Gunakan komentar untuk menjelaskan logika perhitungan metrik.</li>
+        </ul>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

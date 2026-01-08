@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelajaran 04 - List</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">kaggle</div>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html">Kembali ke kursus</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="course-page-header">
+        <p class="eyebrow">Pelajaran 04</p>
+        <h1>List</h1>
+        <p class="hero-copy">List mewakili urutan bernilai di Python. Modul ini mencakup pembuatan list, indexing, slicing, mutasi, fungsi bawaan, metode, pencarian, dan perbandingan dengan tuple.</p>
+      </div>
+
+      <article class="lesson-detail">
+        <h2>Mengenal List</h2>
+        <p>List dibuat memakai kurung siku dan dapat berisi angka, string, maupun list lain.</p>
+        <pre><code>primes = [2, 3, 5, 7]
+planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
+hands = [
+    ['J', 'Q', 'K'],
+    ['2', '2', '2'],
+    ['6', 'A', 'K'],
+]
+my_favourite_things = [32, 'raindrops on roses', help]
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Indexing</h2>
+        <p>Akses elemen tunggal dengan indeks berbasis nol. Gunakan indeks negatif untuk menghitung dari belakang.</p>
+        <pre><code>planets[0]   # 'Mercury'
+planets[1]   # 'Venus'
+planets[-1]  # 'Neptune'
+planets[-2]  # 'Uranus'
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Slicing</h2>
+        <p>Slicing menggunakan notasi <code>list[start:end]</code> dan end tidak termasuk.</p>
+        <pre><code>planets[0:3]
+planets[:3]
+planets[3:]
+planets[1:-1]
+planets[-3:]
+        </code></pre>
+        <p>Start atau end boleh dikosongkan dan Python akan menganggapnya awal/akhir list.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Mengubah List (Mutable)</h2>
+        <p>List bisa diubah di tempat. Penugasan ke indeks atau slice akan memodifikasi nilai.</p>
+        <pre><code>planets[3] = 'Malacandra'
+planets[:3] = ['Mur', 'Vee', 'Ur']
+print(planets)
+planets[:4] = ['Mercury', 'Venus', 'Earth', 'Mars']
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Fungsi Bawaan Berguna</h2>
+        <ul>
+          <li><code>len(planets)</code> menghitung elemen.</li>
+          <li><code>sorted(planets)</code> mengembalikan list baru yang terurut.</li>
+          <li><code>sum(primes)</code> menjumlahkan angka.</li>
+          <li><code>min(primes)</code> dan <code>max(primes)</code> mencari nilai ekstrem.</li>
+        </ul>
+        <pre><code>len(planets)
+sorted(planets)
+primes = [2, 3, 5, 7]
+sum(primes)
+max(primes)
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Sekilas mengenai Objek</h2>
+        <p>Semua di Python adalah objek lengkap dengan atribut dan metode, diakses lewat tanda titik.</p>
+        <pre><code>x = 12
+print(x.imag)
+c = 12 + 3j
+print(c.imag)
+print(x.bit_length())
+help(x.bit_length)
+        </code></pre>
+        <p>Metode adalah fungsi yang menempel pada objek (mis. <code>bit_length</code> pada integer).</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Metode List</h2>
+        <p>List memiliki metode seperti <code>append</code> dan <code>pop</code> untuk memodifikasi isi.</p>
+        <pre><code>planets.append('Pluto')
+print(planets)
+planets.pop()
+print(planets)
+help(planets.append)
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Mencari dalam List</h2>
+        <p>Pakai <code>index</code> untuk menemukan posisi elemen dan operator <code>in</code> untuk pengecekan keberadaan.</p>
+        <pre><code>planets.index('Earth')
+'Earth' in planets
+'Calbefraques' in planets
+        </code></pre>
+        <p><code>planets.index('Pluto')</code> akan memunculkan <code>ValueError</code> karena Pluto tidak lagi di list.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Tuples</h2>
+        <p>Tuple mirip list tetapi memakai kurung biasa dan immutable.</p>
+        <pre><code>t = (1, 2, 3)
+t = 1, 2, 3
+# t[0] = 100  # TypeError
+x = 0.125
+num, den = x.as_integer_ratio()
+print(num / den)
+a, b = 1, 0
+a, b = b, a
+        </code></pre>
+        <p>Tuple sering digunakan untuk mengembalikan beberapa nilai dari satu fungsi.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

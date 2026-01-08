@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelajaran 02 - Fungsi & Bantuan</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">kaggle</div>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html">Kembali ke kursus</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="course-page-header">
+        <p class="eyebrow">Pelajaran 02</p>
+        <h1>Fungsi & Bantuan</h1>
+        <p class="hero-copy">Di modul ini kita memperdalam cara memakai fungsi bawaan, memanfaatkan dokumentasi interaktif, mendefinisikan fungsi sendiri, menulis docstring, hingga memberikan parameter opsional.</p>
+      </div>
+
+      <article class="lesson-detail">
+        <h2>Mengenal Fungsi dan Bantuan</h2>
+        <p>Fungsi seperti <code>print()</code> atau <code>abs()</code> sudah kita pakai sejak pelajaran pertama. Untuk memahami fungsi lain, ingat satu kunci penting: gunakan <code>help()</code>.</p>
+        <pre><code>help(round)
+        </code></pre>
+        <p>Output <code>help()</code> menampilkan header fungsi (mis. <code>round(number, ndigits=None)</code>) dan deskripsi singkat. Pastikan kamu memanggil <code>help()</code> dengan nama fungsi, bukan hasil panggilannya—<code>help(round(-2.01))</code> justru memberi informasi tentang tipe integer yang dikembalikan.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Memahami Parameter</h2>
+        <p>Dokumentasi <code>print()</code> memberi gambaran parameter opsional seperti <code>sep</code>, <code>end</code>, <code>file</code>, dan <code>flush</code>. Contoh:</p>
+        <pre><code>print(1, 2, 3, sep=' < ')
+print(1, 2, 3)
+        </code></pre>
+        <p><code>sep</code> default-nya spasi, sehingga jika tidak diisi, hasilnya tetap <code>1 2 3</code>.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Mendefinisikan Fungsi</h2>
+        <p>Gunakan kata kunci <code>def</code> untuk membuat fungsi baru. Contoh berikut mencari selisih terkecil dari tiga angka:</p>
+        <pre><code>def least_difference(a, b, c):
+    diff1 = abs(a - b)
+    diff2 = abs(b - c)
+    diff3 = abs(a - c)
+    return min(diff1, diff2, diff3)
+
+print(
+    least_difference(1, 10, 100),
+    least_difference(1, 10, 10),
+    least_difference(5, 6, 7),
+)
+        </code></pre>
+        <p><code>return</code> menghentikan fungsi dan mengirim nilai kembali ke pemanggil.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Docstring</h2>
+        <p>Tambahkan deskripsi fungsi menggunakan triple quote tepat setelah header. Docstring akan muncul ketika <code>help()</code> dipanggil.</p>
+        <pre><code>def least_difference(a, b, c):
+    """Kembalikan selisih terkecil di antara tiga angka.
+
+    >>> least_difference(1, 5, -5)
+    4
+    """
+    diff1 = abs(a - b)
+    diff2 = abs(b - c)
+    diff3 = abs(a - c)
+    return min(diff1, diff2, diff3)
+        </code></pre>
+        <p>Sertakan contoh pemanggilan untuk membantu pembaca memahami ekspektasi fungsi.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Fungsi Tanpa <code>return</code></h2>
+        <p>Jika kita lupa menulis <code>return</code>, Python tetap mengizinkan fungsi berjalan, tetapi hasil pemanggilannya menjadi <code>None</code>.</p>
+        <pre><code>def least_difference(a, b, c):
+    diff1 = abs(a - b)
+    diff2 = abs(b - c)
+    diff3 = abs(a - c)
+    min(diff1, diff2, diff3)
+
+print(least_difference(1, 10, 100))  # None
+        </code></pre>
+        <p>Beberapa fungsi memang sengaja tidak mengembalikan nilai karena hanya membutuhkan efek samping, misalnya <code>print()</code> dan <code>help()</code>.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Argumen Default</h2>
+        <p>Tambahkan nilai default agar pengguna tidak wajib mengisi setiap parameter.</p>
+        <pre><code>def greet(who="Colin"):
+    print("Hello,", who)
+
+greet()
+greet(who="Kaggle")
+greet("world")
+        </code></pre>
+        <p>Parameter default sangat mirip dengan perilaku <code>print()</code> yang memiliki <code>sep</code> bawaan.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Fungsi sebagai Argumen</h2>
+        <p>Python mendukung <em>higher-order function</em>, yakni fungsi yang menerima fungsi lain sebagai input.</p>
+        <pre><code>def mult_by_five(x):
+    return 5 * x
+
+def call(fn, arg):
+    return fn(arg)
+
+def squared_call(fn, arg):
+    return fn(fn(arg))
+
+print(call(mult_by_five, 1))
+print(squared_call(mult_by_five, 1))
+        </code></pre>
+        <p>Kamu tidak perlu langsung menulis fungsi seperti ini, tetapi berguna untuk memahami konsepnya karena banyak library Python memanfaatkannya.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Parameter <code>key</code> pada <code>max()</code></h2>
+        <p>Kita bisa mengirim fungsi pembanding ke argumen <code>key</code>. Contoh berikut mencari angka terbesar berdasarkan sisa bagi 5.</p>
+        <pre><code>def mod_5(x):
+    return x % 5
+
+print(
+    'Which number is biggest?',
+    max(100, 51, 14),
+    'Which number is the biggest modulo 5?',
+    max(100, 51, 14, key=mod_5),
+    sep='\n',
+)
+        </code></pre>
+        <p>Hasilnya <code>14</code> untuk versi modulo karena 14 menyisakan 4, nilai terbesar dibandingkan sisa angka lainnya.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

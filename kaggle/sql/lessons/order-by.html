@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelajaran 04 - Order By</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">kaggle</div>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html">Kembali ke kursus</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <a class="back-link" href="../index.html#lesson-4">Kembali ke Daftar Pelajaran</a>
+      <div class="course-page-header">
+        <p class="eyebrow">Pelajaran 04</p>
+        <h1>Order By</h1>
+        <p class="hero-copy">Atur urutan hasil query sehingga wawasan terpenting tampil di bagian atas.</p>
+      </div>
+
+      <article class="lesson-detail">
+        <h2>Dasar ORDER BY</h2>
+        <p><code>ORDER BY</code> dijalankan paling akhir setelah SELECT dievaluasi.</p>
+        <pre><code>SELECT product_id, total_sales
+FROM `datasetku.sales_summary`
+ORDER BY total_sales DESC;</code></pre>
+        <p>Secara default BigQuery mengurutkan <code>ASC</code> (menaik).</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Multi Kolom & Posisi</h2>
+        <p>Anda bisa mengurutkan berdasarkan beberapa kolom atau nomor posisi kolom di SELECT.</p>
+        <pre><code>SELECT region, order_date, revenue
+FROM `datasetku.daily_revenue`
+ORDER BY region ASC, order_date DESC;
+
+-- contoh berdasarkan posisi
+ORDER BY 1, 3 DESC;</code></pre>
+        <p>Gunakan penulisan eksplisit agar query mudah dipelihara.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Menangani NULL</h2>
+        <p><code>NULLS FIRST</code> / <code>NULLS LAST</code> mengontrol posisi nilai NULL.</p>
+        <pre><code>ORDER BY score DESC NULLS LAST</code></pre>
+        <p>Trik lain adalah mengganti NULL dengan nilai sentinel memakai <code>COALESCE</code>.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Paging dengan LIMIT/OFFSET</h2>
+        <p>Kombinasikan ORDER BY dengan <code>LIMIT</code> atau <code>OFFSET</code> untuk membuat pagination sederhana.</p>
+        <pre><code>ORDER BY created_at DESC
+LIMIT 20 OFFSET 40;  -- halaman ke-3, 20 baris per halaman</code></pre>
+        <p>Offset besar bisa menjadi mahal; pertimbangkan pencatatan posisi terakhir (keyset pagination).</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Stabilitas Urutan</h2>
+        <p>Jika beberapa baris punya nilai identik, tambahkan kolom penentu kedua (misalnya <code>id</code>) agar hasil deterministik.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

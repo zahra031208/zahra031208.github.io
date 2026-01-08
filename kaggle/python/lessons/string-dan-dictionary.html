@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelajaran 06 - String & Dictionary</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">kaggle</div>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html"> Kembali ke kursus</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="course-page-header">
+        <p class="eyebrow">Pelajaran 06</p>
+        <h1>String & Dictionary</h1>
+        <p class="hero-copy">Manipulasi teks dan pasangan kunci-nilai adalah senjata utama saat membersihkan data, membangun fitur, ataupun berdialog dengan API.</p>
+      </div>
+
+      <article class="lesson-detail">
+        <h2>Anatomi String Python</h2>
+        <p>String bisa ditulis memakai kutip tunggal maupun ganda, hasilnya sama saja.</p>
+        <pre><code>x = 'Pluto is a planet'
+y = "Pluto is a planet"
+print(x == y)  # True
+print("Pluto's a planet!")
+print('My dog is named "Pluto"')
+        </code></pre>
+        <p>Jika perlu menaruh kutip tunggal di dalam kutip tunggal, pakai karakter escaping <code>\</code>.</p>
+        <pre><code>'Pluto\'s a planet!'
+"Pluto's a planet!"
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Escape Sequence Penting</h2>
+        <div class="operator-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Yang diketik</th>
+                <th>Hasil</th>
+                <th>Contoh</th>
+                <th>Output</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>\'</code></td>
+                <td><code>'</code></td>
+                <td><code>'What\'s up?'</code></td>
+                <td>What's up?</td>
+              </tr>
+              <tr>
+                <td><code>\"</code></td>
+                <td><code>"</code></td>
+                <td><code>"That\"s cool"</code></td>
+                <td>That's "cool"</td>
+              </tr>
+              <tr>
+                <td><code>\\</code></td>
+                <td><code>\</code></td>
+                <td><code>"Look, a mountain: /\\"</code></td>
+                <td>Look, a mountain: /\</td>
+              </tr>
+              <tr>
+                <td><code>\n</code></td>
+                <td>Newline</td>
+                <td><code>"1\n2 3"</code></td>
+                <td>1<br />2 3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Triple quote memungkinkan memasukkan newline secara literal.</p>
+        <pre><code>hello = "hello\nworld"
+print(hello)
+
+triple = """hello
+world"""
+print(triple)
+print(triple == hello)  # True
+        </code></pre>
+        <p><code>print()</code> menambahkan newline otomatis kecuali kita ganti parameter <code>end</code>.</p>
+        <pre><code>print("hello")
+print("world")
+print("hello", end='')
+print("pluto", end='')
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>String sebagai Urutan</h2>
+        <p>Semua operasi list seperti indexing, slicing, dan iterasi berlaku untuk string, namun string tidak bisa dimodifikasi inplace.</p>
+        <pre><code>planet = 'Pluto'
+print(planet[0])      # 'P'
+print(planet[-3:])    # 'uto'
+print(len(planet))    # 5
+print([c + '! ' for c in planet])
+
+planet[0] = 'B'  # TypeError: immutable
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Metode String Populer</h2>
+        <pre><code>claim = "Pluto is a planet!"
+print(claim.upper())      # ALL CAPS
+print(claim.lower())      # all lowercase
+print(claim.index('plan'))
+print(claim.startswith('Pluto'))
+print(claim.endswith('planet'))
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2><code>split()</code> & <code>join()</code></h2>
+        <p><code>str.split()</code> memecah string menjadi list, sedangkan <code>str.join()</code> menyatukan list menjadi string.</p>
+        <pre><code>claim = "Pluto is a planet!"
+words = claim.split()
+print(words)  # ['Pluto', 'is', 'a', 'planet!']
+
+datestr = '1956-01-31'
+year, month, day = datestr.split('-')
+print('/'.join([month, day, year]))  # 01/31/1956
+
+separator = ' clap '.join([w.upper() for w in words])
+print(separator)
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Menyusun String dengan <code>format()</code></h2>
+        <p><code>str.format()</code> memberi placeholder <code>{}</code> yang otomatis mengubah tipe data ke string.</p>
+        <pre><code>planet = 'Pluto'
+position = 9
+print("{}, you'll always be the {}th planet to me.".format(planet, position))
+
+pluto_mass = 1.303 * 10**22
+earth_mass = 5.9722 * 10**24
+population = 52_910_390
+msg = "{} weighs about {:.2} kilograms ({:.3%} of Earth's mass). It is home to {:,} Plutonians.".format(
+    planet,
+    pluto_mass,
+    pluto_mass / earth_mass,
+    population,
+)
+print(msg)
+
+s = """Pluto's a {0}.
+No, it's a {1}.
+{0}!
+{1}!""".format('planet', 'dwarf planet')
+print(s)
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Dictionary 101</h2>
+        <p>Dictionary memetakan kunci ke nilai menggunakan sintaks kurung kurawal.</p>
+        <pre><code>numbers = {'one': 1, 'two': 2, 'three': 3}
+print(numbers['one'])
+
+numbers['eleven'] = 11
+numbers['one'] = 'Pluto'
+print(numbers)
+        </code></pre>
+        <p>Gunakan <code>dict.get()</code> untuk nilai default saat kunci tidak ada.</p>
+        <pre><code>print(numbers.get('missing', 'Tidak tersedia'))
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Dictionary Comprehension & Keanggotaan</h2>
+        <pre><code>planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
+planet_to_initial = {planet: planet[0] for planet in planets}
+print(planet_to_initial)
+
+print('Saturn' in planet_to_initial)      # True
+print('Betelgeuse' in planet_to_initial)  # False
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Iterasi atas Dictionary</h2>
+        <p>Loop standar berjalan pada kunci; gunakan <code>.items()</code> untuk mendapatkan pasangan kunci-nilai sekaligus.</p>
+        <pre><code>numbers = {'one': 'Pluto', 'two': 2, 'three': 3, 'eleven': 11}
+for key in numbers:
+    print(f"{key} = {numbers[key]}")
+
+for planet, initial in planet_to_initial.items():
+    print(f"{planet.rjust(10)} begins with \"{initial}\"")
+
+initials = ' '.join(sorted(planet_to_initial.values()))
+print(initials)  # E J M M N S U V
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Ringkasan</h2>
+        <p>String memberi alat kaya untuk formatting, pencarian, dan pemisahan teks, sedangkan dictionary menyimpan data berlabel serta mendukung komprehensi, iterasi, dan pengecekan kunci cepat. Kuasai keduanya untuk mempermudah parsing dataset dunia nyata.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

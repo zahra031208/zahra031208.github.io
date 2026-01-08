@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelajaran 05 - Perulangan & List Comprehension</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">kaggle</div>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html">Kembali ke kursus</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="course-page-header">
+        <p class="eyebrow">Pelajaran 05</p>
+        <h1>Perulangan & List Comprehension</h1>
+        <p class="hero-copy">Perulangan membantu menjalankan blok kode berulang kali, sedangkan list comprehension memberi cara ringkas untuk membangun list baru dari iterasi yang sama.</p>
+      </div>
+
+      <article class="lesson-detail">
+        <h2>Mengapa Perulangan Penting?</h2>
+        <p>Loop adalah pola inti ketika ingin memproses sekumpulan nilai. Dengan loop, kita bisa membaca daftar planet, menghitung total, mencari pola huruf, atau menjalankan aksi berkali-kali tanpa menulis kode yang sama berulang.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>For Loop pada List</h2>
+        <p>Contoh klasik:</p>
+        <pre><code>planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
+for planet in planets:
+    print(planet, end=' ')
+# Mercury Venus Earth Mars Jupiter Saturn Uranus Neptune
+        </code></pre>
+        <p>Komponen for loop:</p>
+        <ul>
+          <li><strong>Nama variabel</strong> untuk tiap elemen (mis. <code>planet</code>).</li>
+          <li><strong>Kumpulan nilai</strong> yang diiterasi (mis. list <code>planets</code>).</li>
+          <li>Kata kunci <code>in</code> yang menghubungkannya.</li>
+        </ul>
+        <p>Objek di sisi kanan <code>in</code> bisa list, tuple, string, atau apa pun yang iterable.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Iterasi pada Tuple</h2>
+        <pre><code>multiplicands = (2, 2, 2, 3, 3, 5)
+product = 1
+for mult in multiplicands:
+    product = product * mult
+product
+# 360
+        </code></pre>
+        <p>Tuple bersifat immutable tetapi tetap dapat diiterasi satu per satu.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Loop pada String</h2>
+        <pre><code>s = 'steganograpHy is the practicE of conceaLing a file, message, image, or video within another fiLe, message, image, Or video.'
+msg = ''
+for char in s:
+    if char.isupper():
+        print(char, end='')
+# HELLO
+        </code></pre>
+        <p>Loop juga bisa menelusuri setiap karakter, berguna untuk validasi teks atau ekstraksi pola.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Fungsi <code>range()</code></h2>
+        <p><code>range()</code> menghasilkan deret angka dan sering dipakai untuk mengulang aksi dengan jumlah tertentu.</p>
+        <pre><code>for i in range(5):
+    print("Doing important work. i =", i)
+# i = 0 ... i = 4
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>While Loop</h2>
+        <p><code>while</code> menjalankan blok selama kondisi masih True.</p>
+        <pre><code>i = 0
+while i < 10:
+    print(i, end=' ')
+    i += 1
+# 0 1 2 3 4 5 6 7 8 9
+        </code></pre>
+        <p>Kondisi dievaluasi sebagai boolean di setiap iterasi, jadi pastikan variabel kontrol berubah agar loop berhenti.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>List Comprehension Dasar</h2>
+        <p>Cara ringkas untuk membuat list baru:</p>
+        <pre><code>squares = [n**2 for n in range(10)]
+squares
+# [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+        </code></pre>
+        <p>Tanpa comprehension:</p>
+        <pre><code>squares = []
+for n in range(10):
+    squares.append(n**2)
+squares
+        </code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>List Comprehension dengan Kondisi</h2>
+        <pre><code>short_planets = [planet for planet in planets if len(planet) < 6]
+short_planets
+# ['Venus', 'Earth', 'Mars']
+
+loud_short_planets = [planet.upper() + '!' for planet in planets if len(planet) < 6]
+loud_short_planets
+# ['VENUS!', 'EARTH!', 'MARS!']
+        </code></pre>
+        <p>Struktur SQL-like: ekspresi (SELECT), sumber data (FROM), dan filter (WHERE).</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Penulisan Multi-baris dan Variasi</h2>
+        <pre><code>[
+    planet.upper() + '!'
+    for planet in planets
+    if len(planet) < 6
+]
+[32 for planet in planets]
+        </code></pre>
+        <p>Ekspresi kiri tidak harus memakai variabel loop, walau praktiknya jarang. Gabungkan dengan <code>min</code>, <code>max</code>, atau <code>sum</code> untuk solusi satu baris yang ekspresif.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Studi Kasus: <code>count_negatives</code></h2>
+        <pre><code>def count_negatives(nums):
+    """Return the number of negative numbers in the given list."""
+    n_negative = 0
+    for num in nums:
+        if num < 0:
+            n_negative = n_negative + 1
+    return n_negative
+        </code></pre>
+        <pre><code>def count_negatives(nums):
+    return len([num for num in nums if num < 0])
+        </code></pre>
+        <pre><code>def count_negatives(nums):
+    return sum([num < 0 for num in nums])
+        </code></pre>
+        <p>Versi terakhir memanfaatkan fakta bahwa <code>True</code> bernilai 1 dan <code>False</code> bernilai 0 ketika dijumlahkan.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Catatan Readability</h2>
+        <p>The Zen of Python mengingatkan bahwa Readability counts dan Explicit is better than implicit. Gunakan list comprehension untuk kode yang padat namun tetap mudah dipahami; jika logika mulai sulit diikuti, kembali ke loop biasa agar tim lain nyaman membacanya.</p>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

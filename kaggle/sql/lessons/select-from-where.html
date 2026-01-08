@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelajaran 02 - Select, From & Where</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">kaggle</div>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html">Kembali ke kursus</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <a class="back-link" href="../index.html#lesson-2">Kembali ke Daftar Pelajaran</a>
+      <div class="course-page-header animate-block">
+        <p class="eyebrow">Pelajaran 02</p>
+        <h1>Select, From & Where</h1>
+        <p class="hero-copy">Kuasai komponen inti query SQL untuk memilih kolom relevan dan menyaring baris sesuai kebutuhan analisis.</p>
+      </div>
+
+      <div class="lesson-layout">
+        <section class="lesson-stack">
+          <article id="memilih-kolom" class="lesson-detail animate-block">
+        <h2>Memilih Kolom</h2>
+        <p><code>SELECT</code> menentukan kolom yang dikembalikan. Gunakan alias agar nama kolom lebih deskriptif.</p>
+        <pre><code>SELECT
+  station_id AS id_stasiun,
+  AVG(precipitation) AS curah_hujan
+FROM `bigquery-public-data.noaa_gsod.gsod2020`
+LIMIT 10;</code></pre>
+        <p>Gunakan <code>*</code> hanya saat eksplorasi awal karena dapat membaca data lebih banyak dari yang dibutuhkan.</p>
+          </article>
+
+          <article id="sumber-data" class="lesson-detail animate-block">
+        <h2>Menentukan Sumber Data</h2>
+        <p><code>FROM</code> bisa berupa tabel, view, atau subquery.</p>
+        <pre><code>FROM `datasetku.penjualan_2023`
+FROM (
+  SELECT * FROM `datasetku.penjualan_2023`
+  WHERE channel = 'online'
+)</code></pre>
+        <p>Setiap subquery memerlukan alias.</p>
+          </article>
+
+          <article id="where" class="lesson-detail animate-block">
+        <h2>Penyaringan dengan WHERE</h2>
+        <p><code>WHERE</code> dievaluasi sebelum agregasi. Bandingkan nilai dengan operator logika.</p>
+        <pre><code>SELECT *
+FROM `datasetku.transaksi`
+WHERE
+  status = 'SUCCESS'
+  AND amount BETWEEN 10000 AND 50000
+  AND DATE(order_ts) = '2024-09-01';</code></pre>
+        <p>Gunakan <code>IN</code> untuk daftar pendek dan <code>LIKE</code> untuk pola teks.</p>
+          </article>
+
+          <article id="kondisi" class="lesson-detail animate-block">
+        <h2>Menggabungkan Kondisi</h2>
+        <p>Gabungkan kondisi dengan <code>AND</code>/<code>OR</code>. Pakai tanda kurung demi kejelasan.</p>
+        <pre><code>WHERE (region = 'APAC' OR region = 'EMEA')
+  AND NOT is_deleted</code></pre>
+        <p>Nilai <code>NULL</code> harus diuji memakai <code>IS NULL</code> atau <code>IS NOT NULL</code>.</p>
+          </article>
+
+          <article id="praktik" class="lesson-detail animate-block">
+        <h2>Parameter dan Praktik Baik</h2>
+        <ul>
+          <li>Gunakan parameter query di BigQuery (<code>@tanggal</code>) untuk menghindari string concatenation.</li>
+          <li>Tambahkan komentar singkat (<code>-- catatan</code>) guna menjelaskan filter penting.</li>
+          <li>Filter seawal mungkin untuk mengurangi data yang scan.</li>
+        </ul>
+          </article>
+        </section>
+
+        <aside class="lesson-toc animate-block">
+          <p class="eyebrow">Daftar Isi</p>
+          <ol>
+            <li><a href="#memilih-kolom">Memilih Kolom</a></li>
+            <li><a href="#sumber-data">Sumber Data</a></li>
+            <li><a href="#where">Filter WHERE</a></li>
+            <li><a href="#kondisi">Gabungan Kondisi</a></li>
+            <li><a href="#praktik">Praktik Baik</a></li>
+          </ol>
+        </aside>
+      </div>
+    </main>
+  </div>
+  <script src="../../scripts/animations.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelajaran 01 - Halo, Python</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">kaggle</div>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html">Kembali ke kursus</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="course-page-header">
+        <p class="eyebrow">Pelajaran 01</p>
+        <h1>Halo, Python</h1>
+        <p class="hero-copy">Pelajaran pembuka ini memperkenalkan sintaks Python, cara kerja variabel, operator aritmetika, dan fitur-fitur dasar lain yang akan sering kamu jumpai saat menganalisis data.</p>
+      </div>
+
+      <article class="lesson-detail">
+        <h2>Gambaran Kursus</h2>
+        <p>Kursus Python Kaggle dirancang untuk pegiat data yang sudah pernah menulis kode di bahasa lain dan ingin menambahkan Python ke kotak alat mereka. Kita mulai dengan sintaks inti, assignment variabel, lalu masuk ke operasi matematika dan fungsi bawaan.</p>
+        <p>Jika kamu benar-benar baru dalam dunia koding, pertimbangkan untuk mengikuti kursus Intro to Programming terlebih dahulu sebelum melanjutkan.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Program Pertama: Homage Monty Python</h2>
+        <p>Baca kode berikut, tebak apa yang terjadi, lalu jalankan di notebook dan perhatikan output-nya.</p>
+        <pre><code>spam_amount = 0
+print(spam_amount)
+
+# Ordering Spam, egg, Spam, Spam, bacon and Spam (4 more servings of Spam)
+spam_amount = spam_amount + 4
+
+if spam_amount &gt; 0:
+    print("But I don't want ANY spam!")
+
+viking_song = "Spam " * spam_amount
+print(viking_song)
+        </code></pre>
+        <p>Kode lucu ini sudah memanfaatkan banyak konsep kunci Python. Mari kita bedah baris demi baris.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Assignment Variabel</h2>
+        <p>Pada baris <code>spam_amount = 0</code> kita membuat variabel tanpa perlu mendeklarasikan tipe. Python bersifat <em>dynamically typed</em>, sehingga variabel bisa menyimpan angka, string, bahkan boolean secara bergantian.</p>
+        <p>Memanggil <code>print(spam_amount)</code> akan menampilkan <code>0</code>. Fungsi <code>print()</code> dipanggil dengan menuliskan nama fungsi diikuti kurung dan argumen.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Komentar & Penugasan Ulang</h2>
+        <p>Baris yang diawali <code>#</code> adalah komentar, berguna untuk menjelaskan maksud kode. Setelahnya kita melakukan penugasan ulang:</p>
+        <pre><code>spam_amount = spam_amount + 4
+        </code></pre>
+        <p>Python mengevaluasi bagian kanan (<code>0 + 4</code>) lalu menyimpan hasilnya ke variabel yang sama.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Conditionals & Blok Kode</h2>
+        <p>Percabangan ditulis dengan <code>if</code> diakhiri titik dua. Setiap baris yang diberi indentasi empat spasi setelahnya dianggap bagian dari blok tersebut.</p>
+        <pre><code>if spam_amount &gt; 0:
+    print("But I don't want ANY spam!")
+        </code></pre>
+        <p>Pada bahasa lain kamu mungkin menemui kurung kurawal; Python menggantinya dengan indentasi yang konsisten sehingga kode lebih mudah dibaca.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>String & Operator * </h2>
+        <p>String dapat dikalikan dengan angka untuk mengulang teks:</p>
+        <pre><code>viking_song = "Spam " * spam_amount
+print(viking_song)
+# Spam Spam Spam Spam 
+        </code></pre>
+        <p>Ini contoh <em>operator overloading</em>, di mana operator yang sama memiliki makna berbeda bergantung pada tipenya.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Angka & Fungsi <code>type()</code></h2>
+        <p>Gunakan <code>type()</code> untuk memeriksa tipe data:</p>
+        <pre><code>spam_amount = 0
+type(spam_amount)   # int
+type(19.95)         # float
+        </code></pre>
+        <p><code>int</code> mewakili bilangan bulat, sementara <code>float</code> menyimpan angka dengan bagian desimal.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Operator Aritmetika</h2>
+        <p>Python mendukung seluruh operator kalkulator di bawah ini:</p>
+        <table class="operator-table">
+          <thead>
+            <tr>
+              <th>Operator</th>
+              <th>Nama</th>
+              <th>Deskripsi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>a + b</code></td><td>Penjumlahan</td><td>Menjumlahkan <code>a</code> dan <code>b</code></td></tr>
+            <tr><td><code>a - b</code></td><td>Pengurangan</td><td>Selisih <code>a</code> dan <code>b</code></td></tr>
+            <tr><td><code>a * b</code></td><td>Perkalian</td><td>Hasil kali</td></tr>
+            <tr><td><code>a / b</code></td><td>Pembagian</td><td>Hasil bagi (float)</td></tr>
+            <tr><td><code>a // b</code></td><td>Floor division</td><td>Hasil bagi dibulatkan ke bawah</td></tr>
+            <tr><td><code>a % b</code></td><td>Modulus</td><td>Sisa bagi</td></tr>
+            <tr><td><code>a ** b</code></td><td>Pangkat</td><td><code>a</code> dipangkatkan <code>b</code></td></tr>
+            <tr><td><code>-a</code></td><td>Negasi</td><td>Mengubah tanda angka</td></tr>
+          </tbody>
+        </table>
+        <p><code>/</code> selalu menghasilkan <code>float</code>, sedangkan <code>//</code> memberikan bilangan bulat yang dibulatkan ke bawah, berguna misalnya saat membagi dataset ke batch.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Prioritas Operasi</h2>
+        <p>Python mengikuti aturan serupa PEMDAS. Gunakan tanda kurung jika ingin mengontrol urutan evaluasi.</p>
+        <pre><code>hat_height_cm = 25
+my_height_cm = 190
+total_height_m = (hat_height_cm + my_height_cm) / 100
+print("Height in meters =", total_height_m)
+        </code></pre>
+        <p>Pada contoh di atas, menambahkan kurung memastikan penjumlahan dilakukan sebelum pembagian.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Fungsi Bawaan untuk Angka</h2>
+        <ul>
+          <li><code>min()</code> dan <code>max()</code> mencari nilai terkecil dan terbesar.</li>
+          <li><code>abs()</code> mengembalikan nilai mutlak.</li>
+          <li><code>int()</code> dan <code>float()</code> dapat mengonversi angka maupun string numerik.</li>
+        </ul>
+        <pre><code>print(min(1, 2, 3))      # 1
+print(abs(-32))         # 32
+print(int('807') + 1)   # 808
+        </code></pre>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

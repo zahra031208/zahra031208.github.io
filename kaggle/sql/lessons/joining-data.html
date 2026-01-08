@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelajaran 06 - Menggabungkan Data</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">kaggle</div>
+      <nav class="nav">
+        <a class="nav-link" href="../index.html">Kembali ke kursus</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <a class="back-link" href="../index.html#lesson-6">Kembali ke Daftar Pelajaran</a>
+      <div class="course-page-header">
+        <p class="eyebrow">Pelajaran 06</p>
+        <h1>Joining Data</h1>
+        <p class="hero-copy">Pelajari ragam teknik join untuk menggabungkan sumber data dan menjawab pertanyaan bisnis kompleks.</p>
+      </div>
+
+      <article class="lesson-detail">
+        <h2>Inner Join</h2>
+        <p>Mengembalikan baris yang cocok di kedua tabel.</p>
+        <pre><code>SELECT o.order_id, c.customer_name
+FROM `datasetku.orders` AS o
+JOIN `datasetku.customers` AS c
+  ON o.customer_id = c.customer_id;</code></pre>
+        <p>Gunakan <code>USING (column)</code> jika nama kolom sama di kedua tabel.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Outer Join</h2>
+        <p><code>LEFT JOIN</code> mempertahankan semua baris dari tabel kiri.</p>
+        <pre><code>SELECT c.customer_id, o.order_id
+FROM `datasetku.customers` AS c
+LEFT JOIN `datasetku.orders` AS o
+  ON c.customer_id = o.customer_id;</code></pre>
+        <p>Right dan full outer join mengikuti konsep yang sama namun menahan baris dari sisi berbeda.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Cross & Self Join</h2>
+        <p><code>CROSS JOIN</code> menghasilkan kombinasi semua baris, cocok untuk membuat kalender atau tabel referensi.</p>
+        <pre><code>SELECT *
+FROM `util.tanggal` CROSS JOIN `util.shift`;</code></pre>
+        <p><strong>Self join</strong> terjadi ketika tabel digabung dengan dirinya sendiri, misalnya untuk mencari pasangan atasan-bawahan.</p>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Menangani Duplikasi</h2>
+        <p>Pastikan kolom <code>ON</code> memiliki nilai unik atau gunakan agregasi di subquery sebelum join.</p>
+        <pre><code>WITH latest_price AS (
+  SELECT sku, ANY_VALUE(price) AS price
+  FROM `datasetku.price_log`
+  QUALIFY ROW_NUMBER() OVER (PARTITION BY sku ORDER BY ts DESC) = 1
+)
+SELECT o.order_id, o.sku, p.price
+FROM `datasetku.order_items` AS o
+JOIN latest_price AS p USING (sku);</code></pre>
+      </article>
+
+      <article class="lesson-detail">
+        <h2>Checklist Join</h2>
+        <ul>
+          <li>Gunakan alias singkat seperti <code>c</code> atau <code>o</code> agar klausa ON mudah dibaca.</li>
+          <li>Cek jumlah baris sebelum dan sesudah join untuk memastikan tidak terjadi <em>row explosion</em>.</li>
+          <li>Tambahkan kondisi waktu (mis. <code>AND o.order_date &gt;= p.valid_from</code>) ketika menggabungkan tabel bertipe sejarah.</li>
+        </ul>
+      </article>
+    </main>
+  </div>
+</body>
+</html>
