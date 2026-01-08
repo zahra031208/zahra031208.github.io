@@ -1,188 +1,188 @@
 * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-      body {
-        background-color: #f5f0f2;
-        color: #333;
-        display: flex;
-        justify-content: center;
-        padding: 40px;
-      }
+body {
+  background-color: #f5f0f2;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
 
-      .container {
-        display: flex;
-        flex-direction: row;
-        width: 794px;
-        min-height: 1000px;
-        background-color: white;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      }
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 794px;
+  min-height: 1000px;
+  background-color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
 
-      .left {
-        background-color: #d3c1c4;
-        width: 35%;
-        padding: 30px;
-        text-align: center;
-        color: #fff;
-      }
+.left {
+  background-color: #d3c1c4;
+  width: 35%;
+  padding: 30px;
+  text-align: center;
+  color: #fff;
+}
 
-      .left img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-bottom: 20px;
-      }
+.left img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
 
-      .profile-title {
-        font-weight: bold;
-        font-size: 18px;
-        margin-bottom: 10px;
-      }
+.profile-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
 
-      .profile-desc {
-        font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 20px;
-      }
+.profile-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
 
-      .contact {
-        font-size: 14px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 20px;
-        text-align: left;
-      }
+.contact {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  text-align: left;
+}
 
-      .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-      .right {
-        width: 65%;
-        display: flex;
-        flex-direction: column;
-      }
+.right {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+}
 
-      .header-box {
-        background-color: #e3d4d8;
-        padding: 30px;
-      }
+.header-box {
+  background-color: #e3d4d8;
+  padding: 30px;
+}
 
-      .name {
-        font-size: 30px;
-        font-weight: bold;
-        color: #000;
-      }
+.name {
+  font-size: 30px;
+  font-weight: bold;
+  color: #000;
+}
 
-      .role {
-        font-style: italic;
-        color: #4d3f42;
-        margin-top: 5px;
-      }
+.role {
+  font-style: italic;
+  color: #4d3f42;
+  margin-top: 5px;
+}
 
-      .content {
-        padding: 30px;
-        flex-grow: 1;
-      }
+.content {
+  padding: 30px;
+  flex-grow: 1;
+}
 
-      .section {
-        margin-bottom: 25px;
-      }
+.section {
+  margin-bottom: 25px;
+}
 
-      .section h3 {
-        color: #a48895;
-        font-size: 16px;
-        margin-bottom: 8px;
-      }
+.section h3 {
+  color: #a48895;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
 
-      .section b {
-        display: block;
-        margin-bottom: 3px;
-        color: #000;
-      }
+.section b {
+  display: block;
+  margin-bottom: 3px;
+  color: #000;
+}
 
-      .section p {
-        font-size: 14px;
-        color: #333;
-      }
+.section p {
+  font-size: 14px;
+  color: #333;
+}
 
-      .back-button {
-        display: block;
-        margin: 20px auto 0 auto;
-        padding: 8px 16px;
-        background-color: #a48895;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 13px;
-        font-weight: 500;
-        width: fit-content;
-        transition: background-color 0.3s ease;
-      }
+.back-button {
+  display: block;
+  margin: 20px auto 0 auto;
+  padding: 8px 16px;
+  background-color: #a48895;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  width: fit-content;
+  transition: background-color 0.3s ease;
+}
 
-      .back-button:hover {
-        background-color: #8a6e7b;
-      }
+.back-button:hover {
+  background-color: #8a6e7b;
+}
 
-      /* Contact Form */
-      #contact {
-        padding: 30px;
-        margin-top: 20px;
-      }
+/* Contact Form */
+#contact {
+  padding: 30px;
+  margin-top: 20px;
+}
 
-      #contact h2 {
-        margin-bottom: 20px;
-        font-size: 20px;
-        color: #4d3f42;
-      }
+#contact h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #4d3f42;
+}
 
-      #contact .form-label {
-        display: block;
-        font-size: 14px;
-        margin-bottom: 5px;
-        color: #333;
-      }
+#contact .form-label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
 
-      #contact .form-control {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
+#contact .form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
-      #contact button {
-        background-color: #0d6efd;
-        color: white;
-        padding: 8px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: 500;
-      }
+#contact button {
+  background-color: #0d6efd;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+}
 
-      #contact button:hover {
-        background-color: #0b5ed7;
-      }
+#contact button:hover {
+  background-color: #0b5ed7;
+}
 
-      /* Cetak */
-      @media print {
-        body {
-          background: white;
-          padding: 0;
-        }
+/* Cetak */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
 
-        .container {
-          box-shadow: none;
-          width: 210mm;
-          height: auto;
-        }
-      }
+  .container {
+    box-shadow: none;
+    width: 210mm;
+    height: auto;
+  }
+}
