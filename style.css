@@ -101,3 +101,147 @@ section {
 .keyboard-box:hover .keyboard-img {
   transform: translate3d(-50%, -52%, 100px) rotate(5deg) scale(1.2);
 }
+
+:root {
+  --gold: #93979e;
+  --gold-light: #b0b4ba;
+  --dark: #1a1c23;
+  --dark2: #2b2d35;
+}
+
+/* ── Education ── */
+#education {
+  background-color: #93979eae;
+}
+
+.edu-timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+.edu-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #9a9a9a, transparent);
+}
+.edu-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding: 1.6rem 1.8rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-top: 3px solid transparent;
+}
+.edu-item:hover {
+  transform: translateX(6px);
+  box-shadow: 0 8px 32px rgba(154,154,154,0.15);
+  border-top-color: #9a9a9a;
+}
+.edu-item::before {
+  content: '';
+  position: absolute;
+  left: -2.55rem; top: 1.8rem;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #9a9a9a;
+  box-shadow: 0 0 0 4px rgba(154,154,154,0.2);
+}
+.edu-year {
+  font-size: 0.72rem;
+  color: #9a9a9a;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.edu-item h5 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+.edu-item p {
+  color: #888;
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+/* ── Skills Section ── */
+#skills {
+  background: #ffffff;
+}
+#skills h2 {
+  color: #000;
+}
+
+.skill-category-title {
+  color: #93979e;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(147,151,158,0.3);
+}
+
+/* Progress Bar */
+.skill-bar-wrap {
+  margin-bottom: 1.3rem;
+}
+.skill-bar-label {
+  display: flex;
+  justify-content: space-between;
+  color: #333;
+  font-size: 0.83rem;
+  margin-bottom: 0.4rem;
+}
+.skill-bar-label span:last-child {
+  color: #93979e;
+  font-weight: 600;
+}
+.skill-bar-bg {
+  background: rgba(0,0,0,0.08);
+  border-radius: 50px;
+  height: 6px;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 50px;
+  background: linear-gradient(90deg, #93979e, #b0b4ba);
+  width: 0;
+  transition: width 1.4s cubic-bezier(.4,0,.2,1);
+}
+
+/* Pill Badges */
+.skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.12);
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  margin: 0.3rem;
+  transition: all 0.25s ease;
+}
+.skill-pill:hover {
+  background: rgba(147,151,158,0.15);
+  border-color: #93979e;
+  color: #5a5e63;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(147,151,158,0.2);
+}
+.skill-pill i {
+  font-size: 0.95rem;
+}
